@@ -1,0 +1,10 @@
+name: terraform test
+
+on: workflow_dispatch
+
+jobs:
+  teste:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Step 1"
