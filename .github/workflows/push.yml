@@ -3,7 +3,7 @@ name: Push Workflow
 on: push
 
 jobs:
-  first-job: First Job
+  first-job: First-Job
     runs-on: ubuntu-latest
     steps:
       - name: Echo a partir de push
