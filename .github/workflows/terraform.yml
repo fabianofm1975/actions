@@ -8,3 +8,6 @@ jobs:
     steps:
       - name: Step 1
         run: echo "Step 1"
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.3
+
