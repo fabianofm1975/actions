@@ -1,6 +1,6 @@
 name: terraform test 2
 
-on: workflow_dispatch
+on: push
 
 jobs:
   teste:
