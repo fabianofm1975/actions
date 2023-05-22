@@ -15,5 +15,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Teste
-        run: echo "Teste second job"
+        run: echo "${{github}}"
 
