@@ -1,0 +1,103 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - teste-db/Infra
+pr:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - teste-db/Infra
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: Terraform
+
+stages:
+  - stage: tfvalidate
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    displayName: tfvalidate
+    jobs:
+      - job: validate
+        continueOnError: false
+        steps:
+          - task: TerraformInstaller@1
+            displayName: Installer
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Azure RM'
+              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmStorageAccountName: '$(storageaccount)'
+              backendAzureRmContainerName: '$(blobcontainer)'
+              backendAzureRmKey: '$(terraformstatekey)'
+              workingDirectory: '$(terraformdirectory)'
+          - task: TerraformTaskV4@4
+            displayName: Validate
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+
+  - stage: tfdeploy
+    dependsOn: tfvalidate
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - job: apply
+        steps: 
+          - task: TerraformInstaller@1
+            displayName: Installer
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Azure RM'
+              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmStorageAccountName: '$(storageaccount)'
+              backendAzureRmContainerName: '$(blobcontainer)'
+              backendAzureRmKey: '$(terraformstatekey)'
+              workingDirectory: '$(terraformdirectory)'
+          - task: TerraformTaskV4@4
+            displayName: Validate
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+          - task: TerraformTaskV4@4
+            displayName: Plan
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(terraformdirectory)'
+              environmentServiceNameAzureRM: 'Azure RM'
+          - task: TerraformTaskV4@4
+            displayName: Apply
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(terraformdirectory)'
+              environmentServiceNameAzureRM: 'Azure RM'
+
+  - stage: tls_off
+    dependsOn: tfdeploy
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - job: tls_off
+        steps: 
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'Azure RM'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: 'az postgres flexible-server parameter set --name require_secure_transport --value off --resource-group Automacao --server-name testedb'

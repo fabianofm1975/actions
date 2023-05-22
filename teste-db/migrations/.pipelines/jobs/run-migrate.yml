@@ -1,0 +1,27 @@
+parameters:
+  - name: VAR_GROUP
+    type: string
+  - name: ENVIRONMENT
+    type: string
+  - name: POOL_NAME
+    type: string
+jobs:
+  - deployment: RunMigrate
+    displayName: Run migrate with docker
+    environment: ${{ parameters.ENVIRONMENT }}
+    pool:
+      name: ${{ parameters.POOL_NAME }}
+    variables:
+      - group: ${{ parameters.VAR_GROUP }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: current
+              artifact: artifact
+              displayName: Download artifact
+            - bash: |
+                docker build -t migrate --build-arg POSTGRES_USER=$POSTGRES_USER --build-arg POSTGRES_PASSWORD='$(POSTGRES_PASSWORD)' --build-arg POSTGRES_HOST=$POSTGRES_HOST --build-arg POSTGRES_DATABASE=$POSTGRES_DATABASE --build-arg MIGRATE_COMMAND=$(MIGRATE_COMMAND) --build-arg MIGRATE_NUMBER=$(MIGRATE_NUMBER) .
+                docker run migrate
+              displayName: Docker build and run
+              workingDirectory: $(Pipeline.Workspace)/artifact/teste-db/migrations

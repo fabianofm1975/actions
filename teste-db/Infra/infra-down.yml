@@ -1,0 +1,38 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: Terraform
+
+stages:
+  - stage: tfdestroy
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - job: destroy
+        steps: 
+          - task: TerraformInstaller@1
+            displayName: Installer
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Azure RM'
+              backendAzureRmResourceGroupName: '$(resourcegroup)'
+              backendAzureRmStorageAccountName: '$(storageaccount)'
+              backendAzureRmContainerName: '$(blobcontainer)'
+              backendAzureRmKey: '$(terraformstatekey)'
+              workingDirectory: '$(terraformdirectory)'
+          - task: TerraformTaskV4@4
+            displayName: Destroy
+            inputs:
+              provider: 'azurerm'
+              command: 'destroy'
+              workingDirectory: '$(terraformdirectory)'
+              environmentServiceNameAzureRM: 'Azure RM'
+
+
