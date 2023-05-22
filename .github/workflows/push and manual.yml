@@ -14,6 +14,6 @@ jobs:
     needs: first-job
     runs-on: ubuntu-latest
     steps:
-      - name: Teste
-        run: echo "${{github}}"
+      - name: Print a github context
+        run: echo "${{ toJSON(github) }}"
 
