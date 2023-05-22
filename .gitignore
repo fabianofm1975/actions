@@ -1,0 +1,4 @@
+.vs*
+.wsuo
+*.lock
+*.sqlite
