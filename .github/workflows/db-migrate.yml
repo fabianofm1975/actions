@@ -10,6 +10,7 @@ on:
       - master
     paths:
       -  teste-db/migrations/changes
+  workflow_dispatch:
 
 jobs:
   local-migrate:
