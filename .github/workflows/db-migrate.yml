@@ -21,12 +21,24 @@ jobs:
     needs: local-migrate
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1
-        run: echo "Step 1"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Migrate
+        uses: vovavc/migrate-github-action@v0.2.1
+        with:
+          path: ./teste-db/migrations/changes
+          database: postgres://username:password@localhost:5432/database_name?sslmode=disable
+          command: up
+
   production-migrate:
     needs: [local-migrate,staging-migrate]
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1
-        run: echo "Step 1"
-  
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Migrate
+        uses: vovavc/migrate-github-action@v0.2.1
+        with:
+          path: ./teste-db/migrations/changes
+          database: postgres://username:password@localhost:5432/database_name?sslmode=disable
+          command: up
