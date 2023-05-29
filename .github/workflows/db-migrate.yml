@@ -3,6 +3,8 @@ on:
   push:
     branches: 
       - master
+    paths:
+      -  teste-db/migrations
 
 jobs:
   teste:
