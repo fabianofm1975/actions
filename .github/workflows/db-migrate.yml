@@ -7,8 +7,19 @@ on:
       -  teste-db/migrations
 
 jobs:
-  teste:
+  local-migrate:
     runs-on: ubuntu-latest
     steps:
       - name: Step 1
-        run: echo "Step "
+        run: echo "Step 1"
+  staging-migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Step 1"
+  production-migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Step 1"
+  
