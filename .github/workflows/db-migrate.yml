@@ -25,6 +25,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: teste
+        run: |
+            echo $POSTGRES_USER
+            echo $POSTGRES_HOST
+            echo $POSTGRES_DATABASE
+            echo $POSTGRES_PORT
+
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
