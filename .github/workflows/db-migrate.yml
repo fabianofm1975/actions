@@ -1,6 +1,8 @@
-name: terraform test 2
-
-on: push
+name: DB Migrate
+on: 
+  push:
+    branches: 
+      - master
 
 jobs:
   teste:
@@ -8,6 +10,3 @@ jobs:
     steps:
       - name: Step 1
         run: echo "Step 1"
-      - name: HashiCorp - Setup Terraform
-        uses: hashicorp/setup-terraform@v2.0.3
-
