@@ -29,7 +29,7 @@ jobs:
         uses: vovavc/migrate-github-action@v0.2.1
         with:
           path: ./teste-db/migrations/changes
-          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }}?sslmode=disable
+          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }}
           command: ${{ vars.MIGRATE_COMMAND }}
 
   production-migrate:
