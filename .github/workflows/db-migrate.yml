@@ -19,7 +19,7 @@ jobs:
       - name: Local Migrate
         run: echo "To be implemented..."
   staging-migrate:
-    environment: NonProduction-DB
+    environment: Production-DB
     needs: local-migrate
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +33,7 @@ jobs:
           command: ${{ vars.MIGRATE_COMMAND }}
 
   production-migrate:
-    environment: Production-DB
+    environment: NonProduction-DB
     needs: [local-migrate,staging-migrate]
     runs-on: ubuntu-latest
     steps:
