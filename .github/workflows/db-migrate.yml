@@ -20,27 +20,17 @@ jobs:
         run: echo "To be implemented..."
   staging-migrate:
     environment: NonProduction-DB
-    env:
-      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD}}
-      POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
-      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      POSTGRES_DATABASE: ${{ vars.POSTGRES_DATABASE }}
-      MIGRATE_COMMAND: ${{ vars.MIGRATE_COMMAND }}
     needs: local-migrate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Migrate
-        run: |
-            echo "$POSTGRES_USER"
-            echo "$POSTGRES_HOST"
         uses: vovavc/migrate-github-action@v0.2.1
         with:
           path: ./teste-db/migrations/changes
-          database: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DATABASE?sslmode=disable
-          command: $MIGRATE_COMMAND
+          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }}?sslmode=disable
+          command: ${{ vars.MIGRATE_COMMAND }}
 
   production-migrate:
     environment: Production-DB
