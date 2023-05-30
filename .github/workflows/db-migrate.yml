@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: teste
-        run: echo $POSTGRES_HOST            
+        run: echo ${{ vars.POSTGRES_HOST }}            
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: teste
-        run:  echo $POSTGRES_HOST
+        run:  echo ${{ vars.POSTGRES_HOST }} 
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
