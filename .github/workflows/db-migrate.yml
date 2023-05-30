@@ -19,14 +19,9 @@ jobs:
       - name: Step 1
         run: echo "Step 1"
   staging-migrate:
-    environment: NonProduction-DB
+    environment: ${{ vars.NonProduction-DB }}
     needs: local-migrate
     runs-on: ubuntu-latest
-    env:
-      POSTGRES_USER:${{POSTGRES_USER}}
-      POSTGRES_HOST:${{POSTGRES_HOST}}
-      POSTGRES_DATABASE:${{POSTGRES_DATABASE}}
-      POSTGRES_PORT:${{POSTGRES_PORT}}
 
     steps:
       - name: Checkout
