@@ -19,7 +19,7 @@ jobs:
       - name: Step 1
         run: echo "Step 1"
   staging-migrate:
-    environment: ${{ vars.NonProduction-DB }}
+    environment: NonProduction-DB
     needs: local-migrate
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +35,7 @@ jobs:
           command: $MIGRATE_COMMAND
 
   production-migrate:
-    environment: ${{ vars.Production-DB }}
+    environment: Production-DB
     needs: [local-migrate,staging-migrate]
     runs-on: ubuntu-latest
     steps:
