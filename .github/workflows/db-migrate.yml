@@ -22,15 +22,11 @@ jobs:
     environment: ${{ vars.NonProduction-DB }}
     needs: local-migrate
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: teste
-        run: |
-            echo ${{ vars.$POSTGRES_HOST }}
-            
+        run: echo ${{ vars.$POSTGRES_HOST }}            
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
@@ -45,11 +41,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: teste
-        run: |
-            echo ${{ vars.$POSTGRES_HOST }}
-
+        run:  echo ${{ vars.$POSTGRES_HOST }}
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
