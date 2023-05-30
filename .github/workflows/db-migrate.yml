@@ -27,7 +27,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Migrate
         env:
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}          
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: $${{ secrets.POSTGRES_PASSWORD}}
           POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE: ${{ vars.POSTGRES_DATABASE }}
