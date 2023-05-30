@@ -26,14 +26,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: teste
         run: |
-            echo ${{ vars.POSTGRES_USER }}
-            echo "$POSTGRES_PASSWORD"
-            echo "$POSTGRES_HOST"
-            echo "$POSTGRES_DATABASE"
-            echo "$POSTGRES_PORT"
-
+            echo ${{ vars.$POSTGRES_HOST }}
+            
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
@@ -42,12 +39,17 @@ jobs:
           command: $MIGRATE_COMMAND
 
   production-migrate:
-    environment: Production-DB
+    environment: ${{ vars.Production-DB }}
     needs: [local-migrate,staging-migrate]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: teste
+        run: |
+            echo ${{ vars.$POSTGRES_HOST }}
+
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
