@@ -32,6 +32,8 @@ jobs:
           POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_DATABASE: ${{ vars.POSTGRES_DATABASE }}
+          MIGRATE_COMMAND: ${{ vars.MIGRATE_COMMAND }}
+
         uses: vovavc/migrate-github-action@v0.2.1
         with:
           path: ./teste-db/migrations/changes
