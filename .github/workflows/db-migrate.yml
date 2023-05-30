@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: Local Migrate
         run: echo "To be implemented..."
+
   staging-migrate:
     environment: NonProduction-DB
     needs: local-migrate
@@ -28,7 +29,7 @@ jobs:
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
-          path: ./teste-db/migrations/changes
+          path: ./${{ vars.POSTGRES_DATABASE }}/migrations/changes
           database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }}
           command: ${{ vars.MIGRATE_COMMAND }}
 
@@ -42,6 +43,6 @@ jobs:
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
-          path: ./teste-db/migrations/changes
+          path: ./${{ vars.POSTGRES_DATABASE }}/migrations/changes
           database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }}
           command: ${{ vars.MIGRATE_COMMAND }}
