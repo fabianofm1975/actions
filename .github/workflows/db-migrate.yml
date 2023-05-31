@@ -49,9 +49,3 @@ jobs:
           database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }}
           command: ${{ vars.MIGRATE_COMMAND }}
 
-  report:
-    runs-on: ubuntu-latest
-    needs: production-migrate
-    steps:
-      - name: Repoort-Github
-        run: echo '${{ toJSON(github) }}'
