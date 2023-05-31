@@ -1,5 +1,4 @@
 name: DB Migrate Workflow
-
 on: 
   push:  
     branches: 
