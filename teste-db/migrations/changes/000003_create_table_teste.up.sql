@@ -1,4 +1,4 @@
-create table teste 
+create table teste2 
 (
 	nome varchar(20)
 );
