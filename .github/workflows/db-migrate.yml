@@ -1,5 +1,4 @@
 name: DB Migrate Workflow
-env: POSTGRES_DATABASE:${{ vars.POSTGRES_DATABASE }}
 on: 
   push:
     branches: 
