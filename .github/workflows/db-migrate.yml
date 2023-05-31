@@ -1,6 +1,5 @@
 name: DB Migrate Workflow
-env: 
-  POSTGRES_DATABASE:${{ vars.POSTGRES_DATABASE }}
+
 on: 
   push:  
     branches: 
@@ -13,6 +12,9 @@ on:
     paths:
       - $POSTGRES_DATABASE/migrations/changes
   workflow_dispatch:
+
+env: 
+  POSTGRES_DATABASE:${{ vars.POSTGRES_DATABASE }}
 
 jobs:
   local-migrate:
