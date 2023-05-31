@@ -5,12 +5,12 @@ on:
     branches: 
       - master
     paths:
-      - '${{ vars.POSTGRES_DATABASE }}/migrations/changes'
+      - ${{ vars.POSTGRES_DATABASE }}/migrations/changes
   pull_request:
     branches: 
       - master
     paths:
-      - '${{ vars.POSTGRES_DATABASE }}/migrations/changes'
+      - ${{ vars.POSTGRES_DATABASE }}/migrations/changes
   workflow_dispatch:
 
 jobs:
