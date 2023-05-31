@@ -5,7 +5,7 @@ on:
     branches: 
       - master
     paths:
-      - teste-db/migrations/changes
+      - ./teste-db/migrations/changes
 
 jobs:
   local-migrate:
