@@ -20,7 +20,7 @@ jobs:
       - name: Local Migrate
         uses: isbang/compose-action@v1.4.1
         with:
-            compose-file: "./docker-compose.yml"
+            compose-file: "./teste-db/migrations/docker-compose.yml"
 
   staging-migrate:
     environment: NonProduction-DB
