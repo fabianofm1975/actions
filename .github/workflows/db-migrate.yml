@@ -4,8 +4,6 @@ on:
   push:  
     branches: 
       - master
-    paths:
-      - ./teste-db/migrations/changes
 
 jobs:
   local-migrate:
