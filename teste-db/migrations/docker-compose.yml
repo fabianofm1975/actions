@@ -15,6 +15,3 @@ services:
       - ./changes:/changes
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name down --all"
 
-networks:
-  network:
-    driver: bridge
