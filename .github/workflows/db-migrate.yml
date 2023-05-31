@@ -1,17 +1,16 @@
 name: DB Migrate Workflow
-env: 
-  DB_PATH:'${{ vars.POSTGRES_DATABASE }}'
+
 on: 
   push:  
     branches: 
       - master
     paths:
-      - 'DB_PATH/migrations/changes/*'
+      - '"${{ vars.POSTGRES_DATABASE }}"/migrations/changes/*'
   pull_request:
     branches: 
       - master
     paths:
-      - 'DB_PATH/migrations/changes/*'
+      - '"${{ vars.POSTGRES_DATABASE }}"/migrations/changes/*'
   workflow_dispatch:
   
 jobs:
