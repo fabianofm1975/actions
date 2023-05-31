@@ -1,19 +1,16 @@
 name: DB Migrate Workflow
 
-env:
-  banco: teste-db
-
 on: 
   push:  
     branches: 
       - master
     paths:
-      - $banco/migrations/changes
+      - teste-db/migrations/changes
   pull_request:
     branches: 
       - master
     paths:
-      - $banco/migrations/changes
+      - teste-db/migrations/changes
   workflow_dispatch:
 
 jobs:
@@ -55,6 +52,7 @@ jobs:
 
   report:
     runs-on: ubuntu-latest
+    needs: production-migrate
     steps:
       - name: Repoort-Github
         run: echo ${{ toJson(github) }}
