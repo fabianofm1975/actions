@@ -17,7 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Local Migrate
-        run: echo "To be implemented..."
+        uses: isbang/compose-action@v1.4.1
+        with:
+            compose-file: "./${{ vars.POSTGRES_DATABASE }}/migrations/docker-compose.yml"
 
   staging-migrate:
     environment: NonProduction-DB
