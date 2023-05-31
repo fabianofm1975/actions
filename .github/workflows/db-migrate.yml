@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Local Migrate
-        run: docker-compose -ff "${{ vars.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d --build
+        run: docker-compose -f "${{ vars.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d --build
 
   staging-migrate:
     environment: NonProduction-DB
