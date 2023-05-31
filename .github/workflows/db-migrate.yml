@@ -17,6 +17,8 @@ jobs:
     environment: NonProduction-DB
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Local Migrate
         run: docker-compose -f "${{ vars.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d --build
 
