@@ -1,16 +1,19 @@
 name: DB Migrate Workflow
 
+env:
+  banco: teste-db
+
 on: 
   push:  
     branches: 
       - master
     paths:
-      - ${{ env.POSTGRES_DATABASE }}/migrations/changes
+      - $banco/migrations/changes
   pull_request:
     branches: 
       - master
     paths:
-      - ${{ env.POSTGRES_DATABASE }}/migrations/changes
+      - $banco/migrations/changes
   workflow_dispatch:
 
 jobs:
