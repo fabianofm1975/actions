@@ -2,8 +2,7 @@ version: "3"
 services:
   database:
     image: postgres
-    networks:
-      - network
+
 
   migrate-up:
     image: migrate/migrate
