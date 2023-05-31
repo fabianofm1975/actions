@@ -1,6 +1,6 @@
 name: DB Migrate Workflow
 env: 
-  DB_PATH:${{ vars.POSTGRES_DATABASE }}
+  DB_PATH:'${{ vars.POSTGRES_DATABASE }}'
 on: 
   push:  
     branches: 
