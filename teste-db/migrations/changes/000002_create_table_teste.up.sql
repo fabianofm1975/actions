@@ -1,3 +1,4 @@
-create table teste (
-	nome varchar()
+create table teste 
+(
+	nome varchar(20)
 );
