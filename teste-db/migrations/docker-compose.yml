@@ -22,7 +22,7 @@ services:
       - network
     volumes:
       - ./changes:/changes
-    command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable up"
+    command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name up"
     depends_on:
       database:
         condition: service_healthy
@@ -32,7 +32,7 @@ services:
       - network
     volumes:
       - ./changes:/changes
-    command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable down --all"
+    command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name down --all"
     depends_on:
       database:
         condition: service_healthy
