@@ -5,16 +5,13 @@ on:
     branches: 
       - master
     paths:
-      - $POSTGRES_DATABASE/migrations/changes
+      - '${{ vars.POSTGRES_DATABASE }}/migrations/changes'
   pull_request:
     branches: 
       - master
     paths:
-      - $POSTGRES_DATABASE/migrations/changes
+      - '${{ vars.POSTGRES_DATABASE }}/migrations/changes'
   workflow_dispatch:
-
-env: 
-  POSTGRES_DATABASE:${{ vars.POSTGRES_DATABASE }}
 
 jobs:
   local-migrate:
