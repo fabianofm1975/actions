@@ -1,17 +1,15 @@
 name: DB Migrate Workflow
-env:
-  DB_PATH:teste-db
 on: 
   push:  
     branches: 
       - master
     paths:
-      - '$DB_PATH/migrations/changes/*'
+      - 'teste-db/migrations/changes/*'
   pull_request:
     branches: 
       - master
     paths:
-      - '$DB_PATH/migrations/changes/*'
+      - 'teste-db/migrations/changes/*'
   workflow_dispatch:
   
 jobs:
