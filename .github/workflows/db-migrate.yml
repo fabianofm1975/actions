@@ -54,6 +54,7 @@ jobs:
           command: ${{ vars.MIGRATE_COMMAND }}
 
   report:
+    runs-on: ubuntu-latest
     steps:
       - name: Repoort-Github
         run: echo ${{ toJson(github) }}
