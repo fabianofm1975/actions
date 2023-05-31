@@ -4,12 +4,12 @@ on:
     branches: 
       - master
     paths:
-      - teste-db/migrations/changes
+      - ${{ vars.POSTGRES_DATABASE }}/migrations/changes
   pull_request:
     branches: 
       - master
     paths:
-      - teste-db/migrations/changes
+      - ${{ vars.POSTGRES_DATABASE }}/migrations/changes
   workflow_dispatch:
 
 jobs:
