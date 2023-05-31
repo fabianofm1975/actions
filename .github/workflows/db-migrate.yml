@@ -47,4 +47,4 @@ jobs:
     needs: production-migrate
     steps:
       - name: Repoort-Github
-        run: echo ${{ toJson(github) }}
+        run: echo '${{ toJSON(github) }}'
