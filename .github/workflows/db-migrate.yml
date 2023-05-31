@@ -20,7 +20,7 @@ jobs:
       - name: Local Migrate
         uses: isbang/compose-action@v1.4.1
         with:
-            compose-file: "./${{ vars.POSTGRES_DATABASE }}/migrations/docker-compose.yml"
+            compose-file: "${{ GITHUB_REPOSITORY }}/${{ vars.POSTGRES_DATABASE }}/migrations/docker-compose.yml"
 
   staging-migrate:
     environment: NonProduction-DB
