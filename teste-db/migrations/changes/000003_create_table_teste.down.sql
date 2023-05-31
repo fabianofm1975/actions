@@ -1,1 +1,1 @@
-drop table if exists teste cascade;
+drop table if exists teste2 cascade;

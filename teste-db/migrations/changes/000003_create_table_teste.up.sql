@@ -1,3 +1,3 @@
-create table teste (
-nome2 varchar()
+create table teste2 (
+	nome varchar()
 );
