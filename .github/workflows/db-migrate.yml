@@ -37,7 +37,7 @@ jobs:
 
   production-migrate:
     environment: Production-DB
-    needs: [local-migrate,staging-migrate]
+    needs: staging-migrate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
