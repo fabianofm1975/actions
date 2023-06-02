@@ -34,7 +34,7 @@ jobs:
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
-          path: ./"$POSTGRES_DATABASE"/migrations/changes
+          path: ./"$POSTGRES_DATABASE/migrations/changes"
           database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/$POSTGRES_DATABASE
           command: up
 
