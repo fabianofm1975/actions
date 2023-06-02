@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Local Migrate
-        run: docker-compose -f "$POSTGRES_DATABASE/migrations/docker-compose.yml" up -d --build
+        run: docker-compose -f "${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d --build
 
   staging-migrate:
     environment: NonProduction-DB
@@ -35,7 +35,7 @@ jobs:
         uses: vovavc/migrate-github-action@v0.2.1
         with:
           path: ./${{ env.POSTGRES_DATABASE }}/migrations/changes
-          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/$POSTGRES_DATABASE
+          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }}
           command: up
 
   production-migrate:
@@ -48,7 +48,7 @@ jobs:
       - name: Migrate
         uses: vovavc/migrate-github-action@v0.2.1
         with:
-          path: ./$POSTGRES_DATABASE/migrations/changes
-          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/$POSTGRES_DATABASE
+          path: ./${{ env.POSTGRES_DATABASE }}/migrations/changes
+          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }}
           command: up
 
