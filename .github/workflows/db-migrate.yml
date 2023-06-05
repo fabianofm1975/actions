@@ -33,7 +33,7 @@ jobs:
         needs: set-prod-vars
         uses: ./.github/workflows/migrate.yml 
         with:
-          POSTGRES_DATABASE: $POSTGRES_DATABASE
+          POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE }}
           POSTGRES_HOST: $POSTGRES_HOST
           POSTGRES_PORT: $POSTGRES_PORT
           POSTGRES_USER: $POSTGRES_USER
