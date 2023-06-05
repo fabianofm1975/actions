@@ -17,6 +17,7 @@ env:
   
 jobs:
   production:
+    environment: NonProduction-DB
     uses: ./.github/workflows/migrate.yml
     with:
       POSTGRES_USER: ${{ vars.POSTGRES_USER }}
