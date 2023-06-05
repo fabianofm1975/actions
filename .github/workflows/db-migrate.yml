@@ -16,7 +16,7 @@ env:
   POSTGRES_DATABASE: teste-db
   
 jobs:
-  production-migrate:
+  set-prod-vars:
     environment: Production-DB
     runs-on: ubuntu-latest
     steps:
@@ -27,9 +27,9 @@ jobs:
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND}}
+          MIGRATION_COMMAND: ${{ env.MIGRATION_COMMAND}}
 
-      - name: Migrate Production
+  production-migration:
         uses: ./.github/workflows/migrate.yml 
         with:
           POSTGRES_DATABASE: $POSTGRES_DATABASE
