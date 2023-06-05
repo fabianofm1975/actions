@@ -22,15 +22,15 @@ on:
         required: true
         type: string
 
-      POSTGRES_PASSWORD:
-        description: Database where the migration will run
-        required: true
-        type: string
-
       MIGRATION_COMMAND:
         description: Database where the migration will run
         required: true
         type: string
+
+    secrets:
+      POSTGRES_PASSWORD:
+        description: Database where the migration will run
+        required: true
 
 jobs:
   migrate:

@@ -40,8 +40,10 @@ jobs:
           POSTGRES_HOST: ${{ needs.set-prod-vars.outputs.POSTGRES_HOST }}
           POSTGRES_PORT: ${{ needs.set-prod-vars.outputs.POSTGRES_PORT }}
           POSTGRES_USER: ${{ needs.set-prod-vars.outputs.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ needs.set-prod-vars.outputs.POSTGRES_PASSWORD }}
           MIGRATION_COMMAND: ${{ needs.set-prod-vars.outputs.MIGRATION_COMMAND }}
+        secrets:
+          POSTGRES_PASSWORD: ${{ needs.set-prod-vars.outputs.POSTGRES_PASSWORD }}
+
 
 
 
