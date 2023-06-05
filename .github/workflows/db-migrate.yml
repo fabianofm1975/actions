@@ -20,20 +20,17 @@ jobs:
   set-prod-vars:
     environment: Production-DB
     runs-on: ubuntu-latest
-    steps:
-      - name: Set Variables
-        run: echo "Setting Varibles..."
-        env:
-          POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
-          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    outputs:
+      POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
   production-migration:
         needs: set-prod-vars
         uses: ./.github/workflows/migrate.yml 
         with:
-          POSTGRES_DATABASE: teste-db
+          POSTGRES_DATABASE: $POSTGRES_DATABASE
           POSTGRES_HOST: $POSTGRES_HOST
           POSTGRES_PORT: $POSTGRES_PORT
           POSTGRES_USER: $POSTGRES_USER
