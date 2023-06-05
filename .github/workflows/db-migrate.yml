@@ -20,17 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Run production DB Migrations
     environment: Production-DB
-    env:
+    uses: ./.github/workflows/migrate.yml
+    with:
       POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      MIGRATION_COMMAND: up
-
-    container: 
-      image: migrate/migrate
-    steps:
-      - name: Get Code
-        uses: actions/checkout@v3
-      - name: Run Migrate
-        run: migrate -path ${{ env.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@${{ env.POSTGRES_HOST }}:${{ env.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }} ${{ env.MIGRATION_COMMAND }}
+      MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND }}
+      POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE }}
+      
