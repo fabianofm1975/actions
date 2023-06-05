@@ -25,6 +25,10 @@ jobs:
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_USER: ${{ vars.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    steps:
+      - name: Set Variables
+        run: echo "Setting Varibles..."
+
 
   production-migration:
         needs: set-prod-vars
