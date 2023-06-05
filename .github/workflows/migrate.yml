@@ -2,9 +2,14 @@ name: Run Migrations
 on: 
   workflow_call:
     inputs:
+      MIGRATION_COMMAND:
+        description: Database where the migration will run
+        required: false
+        type: string
+
       POSTGRES_DATABASE:
         description: Database where the migration will run
-        required: true
+        required: false
         type: string
         
       POSTGRES_HOST:
@@ -18,11 +23,6 @@ on:
         type: string
 
       POSTGRES_USER:
-        description: Database where the migration will run
-        required: true
-        type: string
-
-      MIGRATION_COMMAND:
         description: Database where the migration will run
         required: true
         type: string
