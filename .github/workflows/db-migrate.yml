@@ -23,9 +23,14 @@ jobs:
     steps:
     - name: Get Code
       uses: actions/checkout@v3
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifacts
     - name: Run Migration
       uses: ./.github/workflows/migrate.yml
       with:
+        ARTIFACT_NAME: artifacts
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
