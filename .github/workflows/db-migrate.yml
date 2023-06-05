@@ -23,10 +23,10 @@ jobs:
     outputs:
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}      
       POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE}}
       MIGRATION_COMMAND: ${{ env.MIGRATION_COMMAND}}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
     steps:
       - name: Set Variables
@@ -41,8 +41,8 @@ jobs:
           POSTGRES_PORT: ${{ needs.set-prod-vars.outputs.POSTGRES_PORT }}
           POSTGRES_USER: ${{ needs.set-prod-vars.outputs.POSTGRES_USER }}
           MIGRATION_COMMAND: ${{ needs.set-prod-vars.outputs.MIGRATION_COMMAND }}
-        secrets:
-          POSTGRES_PASSWORD: ${{ needs.set-prod-vars.outputs.POSTGRES_PASSWORD }}
+        secrets: 
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
 
 
