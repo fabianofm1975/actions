@@ -1,54 +1,24 @@
 name: DB Migrate Workflow
 on: 
-  push:  
-    branches: 
-      - master
-    paths:
-      - 'teste-db/migrations/changes/*'
-  pull_request:
-    branches: 
-      - master
-    paths:
-      - 'teste-db/migrations/changes/*'
   workflow_dispatch: 
 
 env: 
   POSTGRES_DATABASE: teste-db
+  POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+  POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
   
 jobs:
-  local-migrate:
+  test:
     runs-on: ubuntu-latest
+    name: Test migrate up with postgres
+    container: 
+      image: migrate/migrate
     steps:
-      - name: Checkout
+      - name: Get Code
         uses: actions/checkout@v3
-      - name: Local Migrate
-        run: docker-compose -f "${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d --build
+      - name: Run Migrate
+        run: migrate -source ${{ env.POSTGRES_DATABASE }}/migrations/changes/ -database postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@${{ env.POSTGRES_HOST }}:${{ env.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }} up 
 
-  staging-migrate:
-    environment: NonProduction-DB
-    needs: local-migrate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Migrate
-        uses: vovavc/migrate-github-action@v0.2.1
-        with:
-          path: ./${{ env.POSTGRES_DATABASE }}/migrations/changes
-          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }}
-          command: up
-
-  production-migrate:
-    environment: Production-DB
-    needs: staging-migrate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Migrate
-        uses: vovavc/migrate-github-action@v0.2.1
-        with:
-          path: ./${{ env.POSTGRES_DATABASE }}/migrations/changes
-          database: postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }}
-          command: up
 
