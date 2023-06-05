@@ -1,6 +1,6 @@
 name: DB Migrate Workflow
 on: 
-  workflow_dispatch: 
+  push: 
 
 env: 
   POSTGRES_DATABASE: teste-db
