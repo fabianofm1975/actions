@@ -16,25 +16,28 @@ env:
   POSTGRES_DATABASE: teste-db
   
 jobs:
-  set-prod-vars:
+  production-migrate:
     environment: Production-DB
     runs-on: ubuntu-latest
-    env:
-      POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
-      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND}}
+    steps:
+      - name: Set Variables
+        run: echo "Setting Varibles..."
+        env:
+          POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND}}
 
-  production:
-    uses: ./.github/workflows/migrate.yml 
-    with:
-      POSTGRES_DATABASE: $POSTGRES_DATABASE
-      POSTGRES_HOST: $POSTGRES_HOST
-      POSTGRES_PORT: $POSTGRES_PORT
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      MIGRATION_COMMAND: $MIGRATION_COMMAND
+      - name: Migrate Production
+        uses: ./.github/workflows/migrate.yml 
+        with:
+          POSTGRES_DATABASE: $POSTGRES_DATABASE
+          POSTGRES_HOST: $POSTGRES_HOST
+          POSTGRES_PORT: $POSTGRES_PORT
+          POSTGRES_USER: $POSTGRES_USER
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+          MIGRATION_COMMAND: $MIGRATION_COMMAND
 
 
 
