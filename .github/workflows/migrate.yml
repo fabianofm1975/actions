@@ -2,6 +2,11 @@ name: Run Migrations
 on: 
   workflow_call:
     inputs:
+      ENVIRONMENT:
+        description: Database where the migration will run
+        required: true
+        type: string
+
       MIGRATION_COMMAND:
         description: Database where the migration will run
         required: false
@@ -36,6 +41,7 @@ jobs:
   migrate:
     runs-on: ubuntu-latest
     name: Run DB Migrations
+    environment: ${{ inputs.ENVIRONMENT }}
     container: 
       image: migrate/migrate
     steps:

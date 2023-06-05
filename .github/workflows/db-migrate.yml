@@ -21,7 +21,7 @@ jobs:
     name: Staging Migration
     uses: ./.github/workflows/migrate.yml 
     with:
-      environment: NonProduction-DB
+      ENVIRONMENT: NonProduction-DB
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
