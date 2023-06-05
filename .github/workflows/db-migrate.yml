@@ -6,7 +6,7 @@ env:
   POSTGRES_DATABASE: teste-db
   
 jobs:
-  test:
+  production:
     environment: Production-DB
     env:
       POSTGRES_USER: ${{ vars.POSTGRES_USER }}
@@ -14,7 +14,6 @@ jobs:
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       COMMAND: up
-
     runs-on: ubuntu-latest
     name: Test migrate up with postgres
     container: 
