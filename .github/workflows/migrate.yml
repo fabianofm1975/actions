@@ -1,0 +1,35 @@
+name: Run Migrations
+on: 
+  workflow_call:
+    inputs:
+      POSTGRES_USER:
+        description: Database큦 Username to run the migration
+        required: true
+
+      POSTGRES_PASSWORD:
+        description: Username큦 password 
+        required: true
+
+      POSTGRES_HOST:
+        description: Database큦 Hostname 
+        required: true
+
+      POSTGRES_PORT:
+        description: Database큦 Port
+        required: true
+
+      MIGRATION_COMMAND:
+        description: Migration command used by the Migrate Tool
+        required: true
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    name: Run DB Migrations
+    container: 
+      image: migrate/migrate
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Run Migrate
+        run: migrate -path ${{ inputs.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ inputs.POSTGRES_USER }}:${{ inputs.POSTGRES_PASSWORD }}@${{ inputs.POSTGRES_HOST }}:${{ inputs.POSTGRES_PORT }}/${{ inputs.POSTGRES_DATABASE }} ${{ inputs.MIGRATION_COMMAND }}

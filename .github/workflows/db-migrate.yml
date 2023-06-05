@@ -1,25 +1,36 @@
-name: DB Migrate Workflow
+name: DB Migrations Caller
 on: 
-  push: 
+  push:  
+    branches: 
+      - master
+    paths:
+      - 'teste-db/migrations/changes/*'
+  pull_request:
+    branches: 
+      - master
+    paths:
+      - 'teste-db/migrations/changes/*'
+  workflow_dispatch: 
 
 env: 
   POSTGRES_DATABASE: teste-db
   
 jobs:
   production:
+    runs-on: ubuntu-latest
+    name: Run production DB Migrations
     environment: Production-DB
     env:
       POSTGRES_USER: ${{ vars.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      COMMAND: up
-    runs-on: ubuntu-latest
-    name: Test migrate up with postgres
+      MIGRATION_COMMAND: up
+
     container: 
       image: migrate/migrate
     steps:
       - name: Get Code
         uses: actions/checkout@v3
       - name: Run Migrate
-        run: migrate -path ${{ env.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@${{ env.POSTGRES_HOST }}:${{ env.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }} ${{ env.COMMAND }}
+        run: migrate -path ${{ env.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@${{ env.POSTGRES_HOST }}:${{ env.POSTGRES_PORT }}/${{ env.POSTGRES_DATABASE }} ${{ env.MIGRATION_COMMAND }}
