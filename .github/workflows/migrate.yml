@@ -3,8 +3,9 @@ on:
   workflow_call:
     inputs:
       POSTGRES_DATABASE:
-        description: Database´s where the migration will run
+        description: Database where the migration will run
         required: true
+        type: string
      
 jobs:
   migrate:
