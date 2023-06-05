@@ -21,15 +21,9 @@ jobs:
     name: Run production DB Migrations
     environment: Production-DB
     steps:
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: artifact-file
-        path: ${{ github.workspace }}
     - name: Run Migration
       uses: ./.github/workflows/migrate.yml
       with:
-        ARTIFACT_NAME: artifact-file
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}

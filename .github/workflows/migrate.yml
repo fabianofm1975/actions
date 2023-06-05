@@ -22,10 +22,6 @@ on:
         description: Migration command used by the Migrate Tool
         required: true
       
-      ARTIFACT_NAME:
-        description: Artifact name
-        required: true
-
 jobs:
   migrate:
     runs-on: ubuntu-latest
@@ -33,9 +29,5 @@ jobs:
     container: 
       image: migrate/migrate
     steps:
-      - name: Get Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.ARTIFACT_NAME }}
       - name: Run Migrate
         run: migrate -path ${{ inputs.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ inputs.POSTGRES_USER }}:${{ inputs.POSTGRES_PASSWORD }}@${{ inputs.POSTGRES_HOST }}:${{ inputs.POSTGRES_PORT }}/${{ inputs.POSTGRES_DATABASE }} ${{ inputs.MIGRATION_COMMAND }}
