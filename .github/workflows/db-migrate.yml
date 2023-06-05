@@ -18,13 +18,15 @@ env:
 jobs:
   set-prod-vars:
     environment: Production-DB
-    runs-on: ubuntu-latest 
-    env: 
-        POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
-        POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Variables
+        env:
+          POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND}}
 
   production:
     needs: set-prod-vars
