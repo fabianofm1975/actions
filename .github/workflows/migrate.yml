@@ -6,7 +6,32 @@ on:
         description: Database where the migration will run
         required: true
         type: string
+        
+      POSTGRES_HOST:
+        description: Database where the migration will run
+        required: true
+        type: string
      
+      POSTGRES_PORT:
+        description: Database where the migration will run
+        required: true
+        type: string
+
+      POSTGRES_USER:
+        description: Database where the migration will run
+        required: true
+        type: string
+
+      POSTGRES_PASSWORD:
+        description: Database where the migration will run
+        required: true
+        type: string
+
+      MIGRATION_COMMAND:
+        description: Database where the migration will run
+        required: true
+        type: string
+
 jobs:
   migrate:
     runs-on: ubuntu-latest
