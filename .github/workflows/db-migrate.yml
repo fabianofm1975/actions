@@ -13,7 +13,7 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      COMMAND: up 2
+      COMMAND: down 1
 
     runs-on: ubuntu-latest
     name: Test migrate up with postgres
