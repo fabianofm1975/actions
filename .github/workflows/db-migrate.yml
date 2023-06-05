@@ -7,7 +7,7 @@ env:
   
 jobs:
   test:
-    environment: NonProduction-DB
+    environment: Production-DB
     env:
       POSTGRES_USER: ${{ vars.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
