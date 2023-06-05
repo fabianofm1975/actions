@@ -24,9 +24,7 @@ jobs:
       environment: NonProduction-DB
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      POSTGRES_USER: ${{ vars.POSTGRES_USER }}      
-      POSTGRES_DATABASE: $POSTGRES_DATABASE
-      MIGRATION_COMMAND: $MIGRATION_COMMAND
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
     secrets:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
