@@ -17,16 +17,12 @@ env:
   
 jobs:
   production:
-    name: Run production DB Migrations
-    environment: Production-DB
-    steps:
-    - name: Run Migration
-      uses: ./.github/workflows/migrate.yml
-      with:
-        POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-        POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-        POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
-        POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-        MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND }}
-        POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE }}
+    uses: ./.github/workflows/migrate.yml
+    with:
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND }}
+      POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE }}
 
