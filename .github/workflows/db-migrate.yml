@@ -41,8 +41,8 @@ jobs:
           POSTGRES_PORT: ${{ needs.set-prod-vars.outputs.POSTGRES_PORT }}
           POSTGRES_USER: ${{ needs.set-prod-vars.outputs.POSTGRES_USER }}
           MIGRATION_COMMAND: ${{ needs.set-prod-vars.outputs.MIGRATION_COMMAND }}
-        secrets: 
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        secrets: inherit
+
 
 
 
