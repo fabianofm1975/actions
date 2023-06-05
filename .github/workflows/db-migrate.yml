@@ -35,7 +35,7 @@ jobs:
         uses: ./.github/workflows/migrate.yml 
         with:
           POSTGRES_DATABASE: $POSTGRES_DATABASE
-          POSTGRES_HOST: $POSTGRES_HOST
+          POSTGRES_HOST: ${{ needs.set-prod-vars.outputs.POSTGRES_HOST }}
           POSTGRES_PORT: $POSTGRES_PORT
           POSTGRES_USER: $POSTGRES_USER
           POSTGRES_PASSWORD: $POSTGRES_PASSWORD
