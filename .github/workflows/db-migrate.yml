@@ -26,11 +26,12 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: artifacts
+        name: artifact
+        path: artifacts
     - name: Run Migration
       uses: ./.github/workflows/migrate.yml
       with:
-        ARTIFACT_NAME: artifacts
+        ARTIFACT_NAME: artifact
         POSTGRES_USER: ${{ vars.POSTGRES_USER }}
         POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
