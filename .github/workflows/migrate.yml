@@ -2,26 +2,10 @@ name: Run Migrations
 on: 
   workflow_call:
     inputs:
-      POSTGRES_USER:
-        description: Database큦 Username to run the migration
+      POSTGRES_DATABASE:
+        description: Database큦 where the migration will run
         required: true
-
-      POSTGRES_PASSWORD:
-        description: Username큦 password 
-        required: true
-
-      POSTGRES_HOST:
-        description: Database큦 Hostname 
-        required: true
-
-      POSTGRES_PORT:
-        description: Database큦 Port
-        required: true
-
-      MIGRATION_COMMAND:
-        description: Migration command used by the Migrate Tool
-        required: true
-      
+     
 jobs:
   migrate:
     runs-on: ubuntu-latest
