@@ -27,7 +27,6 @@ jobs:
       MIGRATION_COMMAND: ${{ vars.MIGRATION_COMMAND}}
 
   production:
-    needs: set-prod-vars
     uses: ./.github/workflows/migrate.yml 
     with:
       POSTGRES_DATABASE: $POSTGRES_DATABASE
