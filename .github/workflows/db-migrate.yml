@@ -34,8 +34,8 @@ jobs:
     name: Call Migrate 
     uses: fabianofm1975/actions/.github/workflows/migration.yml@master
     with:
-      POSTGRES_DATABASE: $POSTGRES_DATABASE
-      MIGRATION_COMMAND: $MIGRATION_COMMAND
+      POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE }}
+      MIGRATION_COMMAND: ${{ env.MIGRATION_COMMAND }}
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
