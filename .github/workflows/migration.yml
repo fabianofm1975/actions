@@ -19,7 +19,7 @@ on:
 
 jobs:
   migrate:
-    environment: ${{ input.ENVIRONMENT }}
+    environment: ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
     name: Run DB Migration
     container: 
