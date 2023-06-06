@@ -33,6 +33,3 @@ jobs:
     name: Run DB Migrations
     container: 
       image: migrate/migrate
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
