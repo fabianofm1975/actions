@@ -11,19 +11,22 @@ jobs:
   migrate:
     environment: ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
-    name: Run DB Migration - ${{ inputs.ENVIRONMENT }}
+    name: Run DB Migration - ${{ inputs.ENVIRONMENT }}    
     container: 
       image: migrate/migrate
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Echo
+      - name: Check if Environment is Local
+        if: ${{ inputs.ENVIRONMENT }} == 'Local'
+        run: echo "Local"
+      - name: Check if Environment is NOT Local
+        if: ${{ inputs.ENVIRONMENT }} != 'Local'
+        uses: actions/checkout@v3      
         run: |
+            echo "Not Local"
             echo ${{ inputs.ENVIRONMENT }}
             echo ${{ vars.MIGRATION_COMMAND }}
             echo ${{ vars.POSTGRES_DATABASE }}            
             echo ${{ vars.POSTGRES_HOST }}
             echo ${{ vars.POSTGRES_PORT }}
             echo ${{ vars.POSTGRES_USER }}
-      - name: Run Migrate
-        run: migrate -verbose -path ${{ vars.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }} ${{ vars.MIGRATION_COMMAND }}
+            migrate -verbose -path ${{ vars.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }} ${{ vars.MIGRATION_COMMAND }}
