@@ -41,6 +41,7 @@ jobs:
       POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
       POSTGRES_DATABASE: teste-db
       MIGRATION_COMMAND: up
+    secrets:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
 
