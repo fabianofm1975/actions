@@ -12,12 +12,17 @@ on:
       - 'teste-db/migrations/changes/*'
   workflow_dispatch:
 
+env: 
+  POSTGRES_DATABASE: teste-db
+
 jobs:
   calling-migration-local:
-        name: Call Migrate - Local
-        uses: fabianofm1975/actions/.github/workflows/migration.yml@master
-        with:
-          ENVIRONMENT: Local
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+          - name: Call Migrate - Local
+            run: docker-compose -f "./$POSTGRES_DATABASE/migrations/docker-compose.yml" up -d --build
 
   calling-migration-stg:
         needs: calling-migration-local

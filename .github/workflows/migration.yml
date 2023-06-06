@@ -15,18 +15,15 @@ jobs:
     container: 
       image: migrate/migrate
     steps:
-      - name: Check if Environment is Local
-        if: ${{ inputs.ENVIRONMENT }} == 'Local'
-        run: echo "Local"
-      - name: Check if Environment is NOT Local
-        if: ${{ inputs.ENVIRONMENT }} != 'Local'
-        uses: actions/checkout@v3      
+      - name: Echo
         run: |
-            echo "Not Local"
             echo ${{ inputs.ENVIRONMENT }}
             echo ${{ vars.MIGRATION_COMMAND }}
             echo ${{ vars.POSTGRES_DATABASE }}            
             echo ${{ vars.POSTGRES_HOST }}
             echo ${{ vars.POSTGRES_PORT }}
             echo ${{ vars.POSTGRES_USER }}
-            migrate -verbose -path ${{ vars.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }} ${{ vars.MIGRATION_COMMAND }}
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Migrate
+        run: migrate -verbose -path ${{ vars.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }} ${{ vars.MIGRATION_COMMAND }}
