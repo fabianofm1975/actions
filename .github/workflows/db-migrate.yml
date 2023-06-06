@@ -21,8 +21,8 @@ jobs:
         steps:
           - name: Checkout
             uses: actions/checkout@v3
-          - name: Migrations Count
-            run: ls ./${{ env.POSTGRES_DATABASE }}/migrations/changes/* | wc -l
+          - name: UP migrations count
+            run: ls ./${{ env.POSTGRES_DATABASE }}/migrations/changes/*.up.sql | wc -l
           - name: Call Migrate - Local
             run: docker-compose -f "./${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d --build
           - name: Stop containers
