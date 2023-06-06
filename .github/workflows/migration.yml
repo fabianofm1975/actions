@@ -32,11 +32,10 @@ on:
         type: string
         default: postgres
 
+    secrets:
       POSTGRES_PASSWORD:
         description: Username password
-        required: false
-        type: string
-        default: password
+        required: true
 
 jobs:
   migrate:
@@ -54,7 +53,7 @@ jobs:
             echo ${{ inputs.POSTGRES_HOST }}
             echo ${{ inputs.POSTGRES_PORT }}
             echo ${{ inputs.POSTGRES_USER }}
-            echo ${{ inputs.POSTGRES_PASSWORD }}
+            echo ${{ secrets.POSTGRES_PASSWORD }}
 
       - name: Run Migrate
         run: migrate -verbose -path ${{ inputs.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ inputs.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ inputs.POSTGRES_HOST }}:${{ inputs.POSTGRES_PORT }}/${{ inputs.POSTGRES_DATABASE }} ${{ inputs.MIGRATION_COMMAND }}
