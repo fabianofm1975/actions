@@ -33,7 +33,7 @@ jobs:
     uses: fabianofm1975/actions/.github/workflows/migration.yml@master
     with:
       POSTGRES_HOST: "$POSTGRES_HOST"
-      POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
+      POSTGRES_PORT: "${{ env.POSTGRES_PORT }}"
       POSTGRES_USER: $POSTGRES_USER 
       POSTGRES_DATABASE: $POSTGRES_DATABASE
       MIGRATION_COMMAND: $MIGRATION_COMMAND
