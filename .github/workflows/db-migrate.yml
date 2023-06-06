@@ -12,10 +12,6 @@ on:
       - 'teste-db/migrations/changes/*'
   workflow_dispatch: 
 
-env: 
-  POSTGRES_DATABASE: teste-db
-  MIGRATION_COMMAND: up
-  
 jobs:
   setting-variables-stg:
     runs-on: ubuntu-latest
@@ -23,8 +19,26 @@ jobs:
     steps:
       - name: Setting Environment
         run: echo "Setting envinronment..."
+        env: 
+          POSTGRES_DATABASE: teste-db
+          MIGRATION_COMMAND: up
+          POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
-
+  migration-stg:
+    needs: setting-variables-stg
+    name: Call Migrate 
+    uses: ./.github/workflows/migrate.yml 
+    with:
+      POSTGRES_HOST: $POSTGRES_HOST
+      POSTGRES_PORT: $POSTGRES_PORT
+      POSTGRES_USER: $POSTGRES_USER 
+      POSTGRES_DATABASE: $POSTGRES_DATABASE
+      MIGRATION_COMMAND: $MIGRATION_COMMAND
+    secrets:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
 
 
 
