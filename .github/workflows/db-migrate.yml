@@ -21,20 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: NonProduction-DB
     steps:
-      - name: Environment
+      - name: Setting Environment
         run: echo "Setting envinronment..."
 
-  migration:
-    name: Call Migrate 
-    uses: ./.github/workflows/migrate.yml 
-    with:
-      POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
-      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-      POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
-      POSTGRES_DATABASE: teste-db
-      MIGRATION_COMMAND: up
-    secrets:
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+
 
 
 
