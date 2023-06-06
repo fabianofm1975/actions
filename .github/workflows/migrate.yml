@@ -4,33 +4,33 @@ on:
     inputs:
       MIGRATION_COMMAND:
         description: The command to run on the migrate tool
-        required: true
+        required: false
         type: string
 
       POSTGRES_DATABASE:
         description: Database where the migration will run
-        required: true
+        required: false
         type: string
         
       POSTGRES_HOST:
         description: Database큦 address
-        required: true
+        required: false
         type: string
      
       POSTGRES_PORT:
         description: Database큦 port
-        required: true
+        required: false
         type: string
 
       POSTGRES_USER:
         description: Database큦 username
-        required: true
+        required: false
         type: string
 
     secrets:
       POSTGRES_PASSWORD:
         description: Database큦 password
-        required: true
+        required: false
 
 jobs:
   migrate:
