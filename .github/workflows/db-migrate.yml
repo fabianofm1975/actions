@@ -25,6 +25,9 @@ jobs:
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
+      POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE }}
+      MIGRATION_COMMAND: ${{ env.MIGRATION_COMMAND }}
+
     secrets:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
