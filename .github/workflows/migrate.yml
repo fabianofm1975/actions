@@ -1,31 +1,7 @@
 name: Run Migrations
 on: 
   workflow_call:
-    inputs:
-      MIGRATION_COMMAND:
-        description: The command to run on the migrate tool
-        required: true
-        type: string
 
-      POSTGRES_DATABASE:
-        description: Database where the migration will run
-        required: true
-        type: string
-        
-      POSTGRES_HOST:
-        description: Database´s address
-        required: true
-        type: string
-     
-      POSTGRES_PORT:
-        description: Database´s port
-        required: true
-        type: string
-
-      POSTGRES_USER:
-        description: Database´s username
-        required: true
-        type: string
 
 jobs:
   migrate:
