@@ -24,8 +24,6 @@ jobs:
       - name: Setting Environment
         run: echo "Setting envinronment..."
         env: 
-          POSTGRES_DATABASE: teste-db
-          MIGRATION_COMMAND: up
           POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
           POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
@@ -36,11 +34,11 @@ jobs:
     name: Call Migrate 
     uses: fabianofm1975/actions/.github/workflows/migration.yml@master
     with:
+      POSTGRES_DATABASE: $POSTGRES_DATABASE
+      MIGRATION_COMMAND: $MIGRATION_COMMAND
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
-      POSTGRES_DATABASE: teste-db
-      MIGRATION_COMMAND: up
     secrets:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
