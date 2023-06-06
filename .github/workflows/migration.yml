@@ -29,7 +29,7 @@ on:
     secrets:
       POSTGRES_PASSWORD:
         description: Username password
-        required: false
+        required: true
 
 jobs:
   migrate:
