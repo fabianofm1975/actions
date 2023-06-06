@@ -1,7 +1,31 @@
 name: Run Migrations
 on: 
   workflow_call:
+    inputs:
+      MIGRATION_COMMAND:
+        description: The command to run on the migrate tool
+        required: true
+        type: string
 
+      POSTGRES_DATABASE:
+        description: Database where the migration will run
+        required: true
+        type: string
+        
+      POSTGRES_HOST:
+        description: Database´s address
+        required: true
+        type: string
+     
+      POSTGRES_PORT:
+        description: Database´s port
+        required: true
+        type: string
+
+      POSTGRES_USER:
+        description: Database´s username
+        required: true
+        type: string
 
 jobs:
   migrate:
@@ -12,5 +36,3 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Run Migrate
-        run: migrate -verbose -path ${{ inputs.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ inputs.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ inputs.POSTGRES_HOST }}:${{ inputs.POSTGRES_PORT }}/${{ inputs.POSTGRES_DATABASE }} ${{ inputs.MIGRATION_COMMAND }}
