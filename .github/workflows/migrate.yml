@@ -13,22 +13,22 @@ on:
         type: string
         
       POSTGRES_HOST:
-        description: Database큦 address
+        description: Database address
         required: true
         type: string
      
       POSTGRES_PORT:
-        description: Database큦 port
+        description: Database port
         required: true
         type: string
 
       POSTGRES_USER:
-        description: Database큦 username
+        description: Database username
         required: true
         type: string
     secrets:
       POSTGRES_PASSWORD:
-        description: Username큦 password
+        description: Username password
         required: true
 
 jobs:
