@@ -2,43 +2,24 @@ name: Run Migrations
 on: 
   workflow_call:
     inputs:
-      MIGRATION_COMMAND:
-        description: The command to run on the migrate tool
+      ENVIRONMENT:
+        description: Environment from which the variables will be set
         required: true
         type: string
-        default: up
-
+      
       POSTGRES_DATABASE:
-        description: Database where the migration will run
+        description: Database name
         required: true
         type: string
-        default: db
-        
-      POSTGRES_HOST:
-        description: Database address
-        required: true
-        type: string
-        default: localhost
-     
-      POSTGRES_PORT:
-        description: Database port
-        required: true
-        type: string
-        default: 5432
 
-      POSTGRES_USER:
-        description: Database username
+      MIGRATION_COMMAND:
+        description: Migrate command
         required: true
         type: string
-        default: postgres
-
-    secrets:
-      POSTGRES_PASSWORD:
-        description: Username password
-        required: true
 
 jobs:
   migrate:
+    environment: ${{ input.ENVIRONMENT }}
     runs-on: ubuntu-latest
     name: Run DB Migration
     container: 
@@ -50,9 +31,10 @@ jobs:
         run: |
             echo ${{ inputs.MIGRATION_COMMAND }}
             echo ${{ inputs.POSTGRES_DATABASE }}
-            echo ${{ inputs.POSTGRES_HOST }}
-            echo ${{ inputs.POSTGRES_PORT }}
-            echo ${{ inputs.POSTGRES_USER }}
+            echo ${{ inputs.ENVIRONMENT }}
+            echo ${{ vars.POSTGRES_HOST }}
+            echo ${{ vars.POSTGRES_PORT }}
+            echo ${{ vars.POSTGRES_USER }}
             echo ${{ secrets.POSTGRES_PASSWORD }}
 
       - name: Run Migrate
