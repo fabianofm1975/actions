@@ -12,7 +12,7 @@ jobs:
   migrate:
     environment: ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
-    name: Run DB Migration
+    name: Run DB Migration - ${{ inputs.ENVIRONMENT }}
     container: 
       image: migrate/migrate
     steps:
