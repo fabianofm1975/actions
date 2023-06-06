@@ -6,30 +6,37 @@ on:
         description: The command to run on the migrate tool
         required: true
         type: string
+        default: up
 
       POSTGRES_DATABASE:
         description: Database where the migration will run
         required: true
         type: string
+        default: db
         
       POSTGRES_HOST:
         description: Database address
         required: true
         type: string
+        default: localhost
      
       POSTGRES_PORT:
         description: Database port
         required: true
         type: string
+        default: 5432
 
       POSTGRES_USER:
         description: Database username
         required: true
         type: string
-    secrets:
+        default: postgres
+
       POSTGRES_PASSWORD:
         description: Username password
         required: true
+        type: string
+        default: password
 
 jobs:
   migrate:
