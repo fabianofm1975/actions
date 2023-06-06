@@ -21,12 +21,17 @@ jobs:
         steps:
           - name: Checkout
             uses: actions/checkout@v3
-          - name: UP migrations count
-            run: ls ./${{ env.POSTGRES_DATABASE }}/migrations/changes/*.up.sql | wc -l
-          - name: Call Migrate - Local
-            run: docker-compose -f "./${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d --build
-          - name: Stop containers
-            if: always()
+
+          - name: Start container - Run Database
+            run: docker-compose -f "./${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up -d database
+
+          - name: Start container - Run Migrate UP
+            run: docker-compose -f "./${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-up migrate-up
+
+          - name: Start container - Run Migrate DOWN
+            run: docker-compose -f "./${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-down-all migrate-down-all
+
+          - name: Stop container
             run: docker-compose -f "./${{ env.POSTGRES_DATABASE }}/migrations/docker-compose.yml" down
 
   calling-migration-stg:
