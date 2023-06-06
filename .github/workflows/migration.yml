@@ -6,7 +6,6 @@ on:
         description: Environment from which the variables will be set
         required: true
         type: string
-        default: local
 
 jobs:
   migrate:
