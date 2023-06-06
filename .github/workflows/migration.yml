@@ -47,5 +47,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Echo
+        run: |
+            echo ${{ inputs.MIGRATION_COMMAND }}
+            echo ${{ inputs.POSTGRES_DATABASE }}
+            echo ${{ inputs.POSTGRES_HOST }}
+            echo ${{ inputs.POSTGRES_PORT }}
+            echo ${{ inputs.POSTGRES_USER }}
+            echo ${{ inputs.POSTGRES_PASSWORD }}
+
       - name: Run Migrate
         run: migrate -verbose -path ${{ inputs.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ inputs.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ inputs.POSTGRES_HOST }}:${{ inputs.POSTGRES_PORT }}/${{ inputs.POSTGRES_DATABASE }} ${{ inputs.MIGRATION_COMMAND }}
