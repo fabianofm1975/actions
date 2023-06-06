@@ -34,7 +34,7 @@ on:
 
       POSTGRES_PASSWORD:
         description: Username password
-        required: true
+        required: false
         type: string
         default: password
 
