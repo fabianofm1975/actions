@@ -10,11 +10,11 @@ on:
       - master
     paths:
       - 'teste-db/migrations/changes/*'
-  workflow_dispatch: 
+  workflow_dispatch:
 
- env: 
-   POSTGRES_DATABASE: teste-db
-   MIGRATION_COMMAND: up
+env: 
+  POSTGRES_DATABASE: teste-db
+  MIGRATION_COMMAND: up
 
 jobs:
   setting-variables-stg:
