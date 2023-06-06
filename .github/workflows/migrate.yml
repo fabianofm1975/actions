@@ -27,11 +27,6 @@ on:
         required: true
         type: string
 
-    secrets:
-      POSTGRES_PASSWORD:
-        description: Database´s password
-        required: true
-
 jobs:
   migrate:
     runs-on: ubuntu-latest
