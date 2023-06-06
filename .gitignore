@@ -2,3 +2,4 @@
 *.wsuo
 *.lock
 *.sqlite
+/.github/workflows/migrate.yml
