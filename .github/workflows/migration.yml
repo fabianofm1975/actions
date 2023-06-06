@@ -38,4 +38,4 @@ jobs:
             echo ${{ secrets.POSTGRES_PASSWORD }}
 
       - name: Run Migrate
-        run: migrate -verbose -path ${{ inputs.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ inputs.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ inputs.POSTGRES_HOST }}:${{ inputs.POSTGRES_PORT }}/${{ inputs.POSTGRES_DATABASE }} ${{ inputs.MIGRATION_COMMAND }}
+        run: migrate -verbose -path ${{ inputs.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ inputs.POSTGRES_DATABASE }} ${{ inputs.MIGRATION_COMMAND }}
