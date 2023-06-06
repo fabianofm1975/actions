@@ -17,17 +17,22 @@ env:
   MIGRATION_COMMAND: up
   
 jobs:
-  migration-stg:
-    name: Staging Migration
+  setting-variables-stg:
+    runs-on: ubuntu-latest
+    environment: NonProduction-DB
+    steps:
+      - name: Environment
+        run: echo "Setting envinronment..."
+
+  migration:
+    name: Call Migrate 
     uses: ./.github/workflows/migrate.yml 
     with:
-      ENVIRONMENT: NonProduction-DB
       POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_USER: ${{ vars.POSTGRES_USER }} 
       POSTGRES_DATABASE: ${{ env.POSTGRES_DATABASE }}
       MIGRATION_COMMAND: ${{ env.MIGRATION_COMMAND }}
-
     secrets:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
 
