@@ -29,7 +29,7 @@ jobs:
   calling-migration-stg:
     needs: setting-variables-stg
     name: Call Migrate 
-    uses: fabianofm1975/actions/.github/workflows/migrate.yml@master
+    uses: fabianofm1975/actions/.github/workflows/migration.yml@master
     with:
       POSTGRES_HOST: $POSTGRES_HOST
       POSTGRES_PORT: $POSTGRES_PORT
