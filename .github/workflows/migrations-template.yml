@@ -1,4 +1,4 @@
-name: DB Migrations Caller
+name: Migrations - Template  
 on: 
   push:  
     branches: 
