@@ -19,11 +19,11 @@ services:
   migrate-up:
     image: migrate/migrate
     environment: 
-      - MIGRATION_BASE=teste-db
+      - MIGRATION_BASE='teste-db'
     networks:
       - network
     volumes:
-      - ./${MIGRATION_BASE}/migrations/changes:/changes
+      - ./$MIGRATION_BASE/migrations/changes:/changes
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable up"
     depends_on:
       database:
@@ -31,11 +31,11 @@ services:
   migrate-down-all:
     image: migrate/migrate
     environment: 
-      - MIGRATION_BASE=teste-db
+      - MIGRATION_BASE='teste-db'
     networks:
       - network
     volumes:
-      - ./${MIGRATION_BASE}/migrations/changes:/changes
+      - ./$MIGRATION_BASE/migrations/changes:/changes
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable down --all"
     depends_on:
       database:
