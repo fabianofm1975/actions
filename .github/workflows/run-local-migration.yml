@@ -1,0 +1,27 @@
+name: Run Local Migrations
+on: 
+  workflow_call:
+    inputs:
+      BASE_FOLDER:
+        description: Database base folder
+        required: true
+        type: string
+
+jobs:
+  local-migrations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start container - Run Database
+        run: docker-compose -f "./${{ inputs.BASE_FOLDER }}/migrations/docker-compose.yml" up -d database
+
+      - name: Start container - Run Migrate UP
+        run: docker-compose -f "./${{ inputs.BASE_FOLDER }}/migrations/docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-up migrate-up
+
+      - name: Start container - Run Migrate DOWN
+        run: docker-compose -f "./${{ inputs.BASE_FOLDER }}/migrations/docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-down-all migrate-down-all
+
+      - name: Stop container
+        run: docker-compose -f "./${{ inputs.BASE_FOLDER }}/migrations/docker-compose.yml" down

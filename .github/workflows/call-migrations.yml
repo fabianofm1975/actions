@@ -1,0 +1,46 @@
+name: DB Migrations Caller
+on: 
+  push:  
+    branches: 
+      - master
+    paths:
+      - 'teste-db/migrations/changes/*'
+  pull_request:
+    branches: 
+      - master
+    paths:
+      - 'teste-db/migrations/changes/*'
+  workflow_dispatch:
+
+env: 
+  POSTGRES_DATABASE: teste-db
+
+jobs:
+  calling-migration-local:
+        name: Call Migrate - Local
+        uses: fabianofm1975/actions/.github/workflows/run-local-migration.yml@master
+        with:
+          BASE_FOLDER: teste-db
+
+  calling-migration-stg:
+        needs: calling-migration-local
+        name: Call Migrate - STG
+        uses: fabianofm1975/actions/.github/workflows/run-db-migration.yml@master
+        with:
+          ENVIRONMENT: NonProduction-DB
+        secrets: inherit
+
+  calling-migration-prd:
+        needs: calling-migration-stg
+        name: Call Migrate - PRD
+        uses: fabianofm1975/actions/.github/workflows/run-db-migration.yml@master
+        with:
+          ENVIRONMENT: Production-DB
+        secrets: inherit
+
+
+
+
+
+
+
