@@ -18,12 +18,12 @@ services:
   migrate-up:
     image: migrate/migrate
     environment:
-      FOLDER: './teste-db/migrations/changes'
+      FOLDER: teste-db
 
     networks:
       - network
     volumes:
-      - $FOLDER:/changes
+      - ./${BASE_FOLDER}/migrations/change:/changes
 
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable up"
     depends_on:
@@ -32,12 +32,12 @@ services:
   migrate-down-all:
     image: migrate/migrate
     environment:
-      FOLDER: './teste-db/migrations/changes'
+      FOLDER: teste-db
 
     networks:
       - network
     volumes:
-      - $FOLDER:/changes
+      - ./${BASE_FOLDER}/migrations/change:/changes
 
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable down --all"
     depends_on:
