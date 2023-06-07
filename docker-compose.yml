@@ -1,4 +1,3 @@
-version: "3"
 services:
   database:
     image: postgres
@@ -18,16 +17,28 @@ services:
       - network
   migrate-up:
     image: migrate/migrate
+    environment:
+      FOLDER: './teste-db/migrations/changes'
+
     networks:
       - network
+    volumes:
+      - $FOLDER:/changes
+
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable up"
     depends_on:
       database:
         condition: service_healthy
   migrate-down-all:
     image: migrate/migrate
+    environment:
+      FOLDER: './teste-db/migrations/changes'
+
     networks:
       - network
+    volumes:
+      - $FOLDER:/changes
+
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable down --all"
     depends_on:
       database:
