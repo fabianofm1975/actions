@@ -17,9 +17,6 @@ services:
       - network
   migrate-up:
     image: migrate/migrate
-    environment:
-      FOLDER: teste-db
-
     networks:
       - network
     volumes:
@@ -31,9 +28,6 @@ services:
         condition: service_healthy
   migrate-down-all:
     image: migrate/migrate
-    environment:
-      FOLDER: teste-db
-
     networks:
       - network
     volumes:
