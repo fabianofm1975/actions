@@ -1,4 +1,4 @@
-name: Migrations - Teste-DB
+name: Migrations - teste-db
 on: 
   push:  
     branches: 
