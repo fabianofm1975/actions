@@ -12,9 +12,6 @@ on:
       - 'teste-db/migrations/changes/*'
   workflow_dispatch:
 
-env: 
-  POSTGRES_DATABASE: teste-db
-
 jobs:
   calling-migration-local:
         name: Call Migrate - Local
