@@ -21,7 +21,7 @@ services:
     networks:
       - network
     volumes:
-      - ./changes:/teste-db/migrations/changes
+      - ./teste-db/migrations/changes:/changes
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable up"
     depends_on:
       database:
@@ -31,7 +31,7 @@ services:
     networks:
       - network
     volumes:
-      - ./changes:/teste-db/migrations/changes
+      - ./teste-db/migrations/changes:/changes
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable down --all"
     depends_on:
       database:
