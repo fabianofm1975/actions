@@ -20,8 +20,6 @@ services:
     image: migrate/migrate
     networks:
       - network
-    volumes:
-      - ./teste-db/migrations/changes:/changes
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable up"
     depends_on:
       database:
@@ -30,8 +28,6 @@ services:
     image: migrate/migrate
     networks:
       - network
-    volumes:
-      - ./teste-db/migrations/changes:/changes
     command: "-path /changes -database postgres://db_user:db_password@database:5432/db_name?sslmode=disable down --all"
     depends_on:
       database:
