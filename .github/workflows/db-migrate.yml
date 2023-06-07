@@ -32,7 +32,7 @@ jobs:
             run: docker-compose -f "./docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-down-all migrate-down-all
 
           - name: Stop container
-            run: docker-compose -f "./.github/workflows/docker-compose.yml" down
+            run: docker-compose -f "./docker-compose.yml" down
 
   calling-migration-stg:
         needs: calling-migration-local
