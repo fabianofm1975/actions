@@ -15,15 +15,8 @@ jobs:
     container: 
       image: migrate/migrate
     steps:
-      - name: Echo
-        run: |
-            echo ${{ inputs.ENVIRONMENT }}
-            echo ${{ vars.MIGRATION_COMMAND }}
-            echo ${{ vars.POSTGRES_DATABASE }}            
-            echo ${{ vars.POSTGRES_HOST }}
-            echo ${{ vars.POSTGRES_PORT }}
-            echo ${{ vars.POSTGRES_USER }}
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Run Migrate
         run: migrate -verbose -path ${{ vars.POSTGRES_DATABASE }}/migrations/changes -database postgres://${{ vars.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ vars.POSTGRES_HOST }}:${{ vars.POSTGRES_PORT }}/${{ vars.POSTGRES_DATABASE }} ${{ vars.MIGRATION_COMMAND }}
