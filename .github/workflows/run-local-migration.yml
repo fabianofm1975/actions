@@ -11,11 +11,11 @@ jobs:
   local-migrations:
     runs-on: ubuntu-latest
     steps:
-      - name: Set Folder Variable
-        run: echo "BASE_FOLDER=${{ inputs.BASE_FOLDER }}" > "./.github/dockerfile/.env"
-
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Set Folder Variable
+        run: echo "BASE_FOLDER=${{ inputs.BASE_FOLDER }}" > "./.github/dockerfile/.env"
 
       - name: Start container - Run Database
         run: docker compose -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" up -d database
