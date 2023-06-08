@@ -18,7 +18,7 @@ jobs:
         run: docker-compose -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" up -d database
 
       - name: Start container - Run Migrate UP
-        run: docker-compose --env BASE_FOLDER=${{ inputs.BASE_FOLDER }} -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-up migrate-up
+        run: docker-compose -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" up -e BASE_FOLDER=${{ inputs.BASE_FOLDER }} --abort-on-container-exit --exit-code-from migrate-up migrate-up
 
       - name: Start container - Run Migrate DOWN
         run: echo "BASE_FOLDER=${{ inputs.BASE_FOLDER }}" > ./.github/dockerfile/.env && docker-compose --env-file ./.github/dockerfile/.env -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-down-all migrate-down-all
