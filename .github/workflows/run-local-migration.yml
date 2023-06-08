@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Start container - Run Database
-        run: docker compose -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" up -d database
+        run: docker compose -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" run -d database
 
       - name: Start container - Run Migrate UP
         run:  docker compose -p ${{ inputs.BASE_FOLDER }} -f "./.github/dockerfile/docker-compose.yml" run -e BASE_FOLDER=${{ inputs.BASE_FOLDER }} migrate-up
