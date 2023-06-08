@@ -17,8 +17,6 @@ services:
       - network
   migrate-up:
     image: migrate/migrate
-    env_file:
-      - teste-db.env
     networks:
       - network
     volumes:
