@@ -17,6 +17,8 @@ services:
       - network
   migrate-up:
     image: migrate/migrate
+    env_file:
+      - "./.github/dockerfile/teste-db.env
     networks:
       - network
     volumes:
