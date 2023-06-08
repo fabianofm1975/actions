@@ -40,3 +40,6 @@ services:
 networks:
   network:
     driver: bridge
+
+env_file:
+  - ./.github/dockerfile/docker.env
