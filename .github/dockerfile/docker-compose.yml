@@ -17,8 +17,6 @@ services:
       - network
   migrate-up:
     image: migrate/migrate
-    env_file:
-      - .env
     networks:
       - network
     volumes:
@@ -29,8 +27,6 @@ services:
         condition: service_healthy
   migrate-down-all:
     image: migrate/migrate
-    env_file:
-      - .env
     networks:
       - network
     volumes:
