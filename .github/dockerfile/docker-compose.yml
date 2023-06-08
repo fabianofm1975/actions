@@ -17,6 +17,8 @@ services:
       - network
   migrate-up:
     image: migrate/migrate
+    env_file:
+      - "./.github/dockerfile/docker.env"
     networks:
       - network
     volumes:
@@ -41,5 +43,3 @@ networks:
   network:
     driver: bridge
 
-env_file:
-  - ./.github/dockerfile/docker.env
