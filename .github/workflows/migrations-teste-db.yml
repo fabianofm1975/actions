@@ -20,7 +20,7 @@ jobs:
           BASE_FOLDER: teste-db
 
   calling-migration-stg:
-        if: ${{ github.event_name == 'pull_request' }}
+        #if: ${{ github.event_name == 'pull_request' }}
         needs: calling-migration-local
         name: Call Migrate - STG
         uses: fabianofm1975/actions/.github/workflows/run-db-migration.yml@master
@@ -29,7 +29,7 @@ jobs:
         secrets: inherit
 
   calling-migration-prd:
-        if: ${{ github.event_name == 'pull_request' }}
+        #if: ${{ github.event_name == 'pull_request' }}
         needs: calling-migration-stg
         name: Call Migrate - PRD
         uses: fabianofm1975/actions/.github/workflows/run-db-migration.yml@master
