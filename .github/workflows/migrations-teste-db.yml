@@ -10,7 +10,7 @@ on:
 jobs:
   calling-migration-local:        
         name: Call Migrate - Local
-        uses: stone-payments/migration-psql/.github/workflows/run-local-migration.yml@master
+        uses: fabianofm1975/migrate/.github/workflows/run-local-migration.yml@master
         with:
           BASE_FOLDER: teste-db
 
@@ -18,7 +18,7 @@ jobs:
         if: github.event.pull_request.merged == true 
         needs: calling-migration-local
         name: Call Migrate - STG
-        uses: stone-payments/migration-psql/.github/workflows/run-db-migration.yml@master
+        uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
         with:
           ENVIRONMENT: teste-db-stg
         secrets: inherit
@@ -27,7 +27,7 @@ jobs:
         if: github.event.pull_request.merged == true 
         needs: calling-migration-stg
         name: Call Migrate - PRD
-        uses: stone-payments/migration-psql/.github/workflows/run-db-migration.yml@master
+        uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
         with:
           ENVIRONMENT: teste-db-prd
         secrets: inherit
