@@ -10,7 +10,12 @@ on:
 jobs:
   migrate:
     environment: ${{ inputs.ENVIRONMENT }}
-    runs-on: ubuntu-latest
+    runs-on: 
+      - self-hosted
+      - Linux
+      - tis
+      - prod
+
     name: Run DB Migration - ${{ inputs.ENVIRONMENT }}    
     container: 
       image: migrate/migrate

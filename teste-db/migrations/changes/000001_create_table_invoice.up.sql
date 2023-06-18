@@ -1,4 +1,4 @@
-CREATE TABLE teste1
+CREATE TABLE public.invoice
 (
     texto            VARCHAR(100)    NOT NULL
 );
