@@ -17,7 +17,7 @@ jobs:
   calling-migration-local: 
     if: github.event_name == 'pull_request_review' || github.event.pull_request.merged == true
     name: Call Migrate - Local
-    uses: fabianofm1975/migration/.github/workflows/run-local-migration.yml@master
+    uses: fabianofm1975/migrate/.github/workflows/run-local-migration.yml@master
     with:
         BASE_FOLDER: teste-db
 
@@ -25,7 +25,7 @@ jobs:
     if: github.event.pull_request.merged == true 
     needs: calling-migration-local
     name: Call Migrate - STG
-    uses: fabianofm1975/migration/.github/workflows/run-db-migration.yml@master
+    uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
     with:
         ENVIRONMENT: teste-db-stg
     secrets: inherit
@@ -33,7 +33,7 @@ jobs:
  # servicenow:
  #   if: github.event_name == 'issue_comment'
  #   name: Servicenow
- #   uses: fabianofm1975/migration-psql/.github/workflows/servicenow_approval.yml@master
+ #   uses: fabianofm1975/migrate/.github/workflows/servicenow_approval.yml@master
  #   with:
  #       PR_NUMBER: ${{ github.event.issue.number }}  
 
@@ -41,7 +41,7 @@ jobs:
     if: needs.servicenow.outputs.comment_id != 0
     needs: calling-migration-stg
     name: Call Migrate - PRD
-    uses: fabianofm1975/migration/.github/workflows/run-db-migration.yml@master
+    uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
     with:
         ENVIRONMENT: teste-db-prd
     secrets: inherit
