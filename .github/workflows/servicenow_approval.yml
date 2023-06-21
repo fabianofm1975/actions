@@ -1,0 +1,35 @@
+name: Servicenow
+on: 
+  workflow_call:
+    inputs:
+      PR_NUMBER:
+        description: Pull Request number
+        required: true
+        type: string
+ 
+    outputs:
+      comment_id:
+        description: Pull Request Comments search result
+        value: ${{ jobs.search_comments.outputs.comment_id }}
+
+jobs:
+  search_comments:
+    runs-on: 
+      - self-hosted
+      - Linux
+      - tis
+      - prod
+
+    outputs:
+        comment_id: ${{ steps.Comment.outputs.comment-id }}
+
+    steps:
+      - name: Search comments on PR
+        uses: peter-evans/find-comment@v2.4.0
+        id: Comment
+        with:
+            issue-number: ${{ inputs.PR_NUMBER }}
+            comment-author: ${{ vars.USUARIO_SERVICENOW_PR }} 
+            body-includes: Aprovado
+      - run: echo "comment_id=${{ steps.Comment.outputs.comment-id }}" >> $GITHUB_ENV
+  
