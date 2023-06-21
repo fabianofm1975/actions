@@ -30,16 +30,16 @@ jobs:
         ENVIRONMENT: teste-db-stg
     secrets: inherit
 
-  servicenow:
-    if: github.event_name == 'issue_comment'
-    name: Servicenow
-    uses: fabianofm1975/migration-psql/.github/workflows/servicenow_approval.yml@master
-    with:
-        PR_NUMBER: ${{ github.event.issue.number }}  
+ # servicenow:
+ #   if: github.event_name == 'issue_comment'
+ #   name: Servicenow
+ #   uses: fabianofm1975/migration-psql/.github/workflows/servicenow_approval.yml@master
+ #   with:
+ #       PR_NUMBER: ${{ github.event.issue.number }}  
 
   calling-migration-prd: 
     if: needs.servicenow.outputs.comment_id != 0
-    needs: servicenow
+    needs: calling-migration-stg
     name: Call Migrate - PRD
     uses: fabianofm1975/migration-psql/.github/workflows/run-db-migration.yml@master
     with:
