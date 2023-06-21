@@ -1,16 +1,21 @@
 name: Migrations Template - teste-db 
 on:   
   pull_request:
-    types: [opened,closed]
+    types: [closed]
     branches: 
       - master
     paths:
       - 'teste-db/migrations/changes/*'
+
+  pull_request_review:
+    types: [submitted]
+
   issue_comment:
     types: [created]
 
 jobs:
-  calling-migration-local:        
+  calling-migration-local: 
+    if: github.event_name == 'pull_request_review' || github.event.pull_request.merged == true
     name: Call Migrate - Local
     uses: fabianofm1975/migration-psql/.github/workflows/run-local-migration.yml@master
     with:
