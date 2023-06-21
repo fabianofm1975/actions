@@ -1,34 +1,42 @@
 name: Migrations Template - teste-db 
 on:   
   pull_request:
-    types: [opened,synchronize,reopened,unlocked,closed]
+    types: [opened,closed]
     branches: 
       - master
     paths:
       - 'teste-db/migrations/changes/*'
-  workflow_dispatch:
+  issue_comment:
+    types: [created]
 
 jobs:
   calling-migration-local:        
-        name: Call Migrate - Local
-        uses: fabianofm1975/migrate/.github/workflows/run-local-migration.yml@master
-        with:
-          BASE_FOLDER: teste-db
+    name: Call Migrate - Local
+    uses: fabianofm1975/migration-psql/.github/workflows/run-local-migration.yml@master
+    with:
+        BASE_FOLDER: teste-db
 
   calling-migration-stg:
-        if: github.event.pull_request.merged == true 
-        needs: calling-migration-local
-        name: Call Migrate - STG
-        uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
-        with:
-          ENVIRONMENT: NonProduction-DB
-        secrets: inherit
+    if: github.event.pull_request.merged == true 
+    needs: calling-migration-local
+    name: Call Migrate - STG
+    uses: fabianofm1975/migration-psql/.github/workflows/run-db-migration.yml@master
+    with:
+        ENVIRONMENT: teste-db-stg
+    secrets: inherit
 
-  calling-migration-prd:
-        if: github.event.pull_request.merged == true 
-        needs: calling-migration-stg
-        name: Call Migrate - PRD
-        uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
-        with:
-          ENVIRONMENT: Production-DB
-        secrets: inherit
+  servicenow:
+    if: github.event_name == 'issue_comment'
+    name: Servicenow
+    uses: fabianofm1975/migration-psql/.github/workflows/servicenow_approval.yml@master
+    with:
+        PR_NUMBER: ${{ github.event.issue.number }}  
+
+  calling-migration-prd: 
+    if: needs.servicenow.outputs.comment_id != 0
+    needs: servicenow
+    name: Call Migrate - PRD
+    uses: fabianofm1975/migration-psql/.github/workflows/run-db-migration.yml@master
+    with:
+        ENVIRONMENT: teste-db-prd
+    secrets: inherit
