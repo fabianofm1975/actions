@@ -28,7 +28,7 @@ jobs:
     secrets: inherit
 
   calling-migration-prd: 
-    if: calling-migration-local
+    if: github.event.pull_request.merged == true
     needs: calling-migration-stg
     name: Call Migrate - PRD
     uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
