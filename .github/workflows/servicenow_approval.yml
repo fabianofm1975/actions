@@ -14,11 +14,7 @@ on:
 
 jobs:
   search_comments:
-    runs-on: 
-      - self-hosted
-      - Linux
-      - tis
-      - prod
+    runs-on: ubuntu-latest
 
     outputs:
         comment_id: ${{ steps.Comment.outputs.comment-id }}
