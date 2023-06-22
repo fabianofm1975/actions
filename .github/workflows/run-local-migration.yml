@@ -9,11 +9,7 @@ on:
 
 jobs:
   local-migrations:
-    runs-on: 
-      - self-hosted
-      - Linux
-      - tis
-      - prod
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
