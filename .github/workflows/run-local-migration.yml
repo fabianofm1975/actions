@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Migrate UP
-        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres?sslmode=prefer up
+        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable up
 
       - name: Run Migrate DOWN
-        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres?sslmode=prefer down
+        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable down

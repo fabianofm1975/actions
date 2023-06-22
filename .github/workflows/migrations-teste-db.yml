@@ -10,8 +10,8 @@ on:
   pull_request_review:
     types: [submitted]
 
-  issue_comment:
-    types: [created]
+ # issue_comment:
+ #   types: [created]
 
 jobs:
   calling-migration-local: 
