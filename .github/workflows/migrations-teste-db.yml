@@ -10,9 +10,6 @@ on:
   pull_request_review:
     types: [submitted]
 
-  issue_comment:
-    types: [created]
-
 jobs:
   calling-migration-local: 
     if: github.event_name == 'pull_request_review' || github.event.pull_request.merged == true
@@ -30,15 +27,8 @@ jobs:
         ENVIRONMENT: teste-db-stg
     secrets: inherit
 
- # servicenow:
- #   if: github.event_name == 'issue_comment'
- #   name: Servicenow
- #   uses: fabianofm1975/migrate/.github/workflows/servicenow_approval.yml@master
- #   with:
- #       PR_NUMBER: ${{ github.event.issue.number }}  
-
   calling-migration-prd: 
-    if: needs.servicenow.outputs.comment_id != 0
+    if: github.event.pull_request.merged == true
     needs: calling-migration-stg
     name: Call Migrate - PRD
     uses: fabianofm1975/migrate/.github/workflows/run-db-migration.yml@master
