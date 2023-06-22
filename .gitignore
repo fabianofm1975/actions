@@ -3,3 +3,4 @@
 *.lock
 *.sqlite
 /.github/workflows/migrate.yml
+/.vs/slnx.sqlite
