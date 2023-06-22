@@ -30,4 +30,4 @@ jobs:
         run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable up
 
       - name: Run Migrate DOWN
-        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable down
+        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable down -all
