@@ -10,22 +10,24 @@ on:
 jobs:
   local-migrations:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: 
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 20
 
+    name: Run DB Local Migration
+    container: 
+      image: migrate/migrate    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set Folder Variable
-        run: echo "BASE_FOLDER=${{ inputs.BASE_FOLDER }}" > .env
+      - name: Run Migrate UP
+        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres up
 
-      - name: Start container - Run Database
-        run: docker compose -p ${{ inputs.BASE_FOLDER }} -f "./docker-compose.yml" up -d database
-
-      - name: Start container - Run Migrate UP
-        run: docker compose -p ${{ inputs.BASE_FOLDER }} -f "./docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-up migrate-up
-
-      - name: Start container - Run Migrate DOWN
-        run: docker compose -p ${{ inputs.BASE_FOLDER }} -f "./docker-compose.yml" up --abort-on-container-exit --exit-code-from migrate-down-all migrate-down-all
-
-      - name: Stop container
-        run: docker compose -p ${{ inputs.BASE_FOLDER }} -f "./docker-compose.yml" down
+      - name: Run Migrate DOWN
+        run: migrate -verbose -path ${{ inputs.BASE_FOLDER }}/migrations/changes -database postgres://postgres:postgres@postgres:5432/postgres down
