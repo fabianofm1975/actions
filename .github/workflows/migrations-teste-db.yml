@@ -1,7 +1,7 @@
 name: Migrations Template - teste-db 
 on:   
   pull_request:
-    types: [closed]
+    types: [opened,closed]
     branches: 
       - master
     paths:
@@ -9,7 +9,6 @@ on:
 
 jobs:
   calling-migration-local: 
-    if: github.event.pull_request.merged == true
     name: Call Migrate - Local
     uses: fabianofm1975/migrate/.github/workflows/run-local-migration.yml@master
     with:
