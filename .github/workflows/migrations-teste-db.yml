@@ -6,7 +6,6 @@ on:
       - master
     paths:
       - 'teste-db/migrations/changes/*'
-  workflow_dispatch:
 
 jobs:
   calling-migration-local: 
