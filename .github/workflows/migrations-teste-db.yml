@@ -1,11 +1,12 @@
 name: Migrations Template - teste-db 
 on:   
   pull_request:
-    types: [opened,closed]
+    types: [opened,closed,edited]
     branches: 
       - master
     paths:
       - 'teste-db/migrations/changes/*'
+  workflow_dispatch:
 
 jobs:
   calling-migration-local: 
