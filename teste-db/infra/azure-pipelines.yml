@@ -1,0 +1,71 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    include:
+      - vouchers-db/infra/*
+    exclude:
+      - vouchers-db/infra/README.md
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    include:
+      - vouchers-db/infra/*
+    exclude:
+      - vouchers-db/infra/README.md
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: stone-payments/azure-pipelines-templates
+      ref: refs/tags/v1.7.2
+      endpoint: 'Stone Co. Github'
+
+extends:
+  template: infra/Makefile/template-pipeline.yml@templates
+  parameters:
+    variableGroups:
+      - 'infra.common.pipeline'
+    variables:
+      commonWorkingDirectory: 'vouchers-db/infra/'
+      common_ssh_knownHostsEntry: $(github_ssh_knownHostsEntry)
+      common_ssh_PublicKey: $(id_rsa_ssh_PublicKey)
+      common_ssh_Passphrase: $(id_rsa_ssh_passphrase)
+    stages:
+      Staging-postgres-paas:
+        pool: 'gcp-pricing-non-prod-agent'
+        environment: 'NonProduction-Infra'
+        variableGroups:
+          - 'infra.common.pipeline'
+        variables:
+          workingDirectory: $(commonWorkingDirectory)
+          ssh_knownHostsEntry: $(common_ssh_knownHostsEntry)
+          ssh_PublicKey: $(common_ssh_PublicKey)
+          ssh_Passphrase: $(common_ssh_Passphrase)
+        stepParameters:
+          installSSHKey: true
+          bashEnvVars:
+            TF_VAR_environment: 'stg'
+      Production-postgres-paas:
+        pool: 'gcp-pricing-prod-agent'
+        environment: 'Production-Infra'
+        variableGroups:
+          - 'infra.common.pipeline'
+        variables:
+          workingDirectory: $(commonWorkingDirectory)
+          ssh_knownHostsEntry: $(common_ssh_knownHostsEntry)
+          ssh_PublicKey: $(common_ssh_PublicKey)
+          ssh_Passphrase: $(common_ssh_Passphrase)
+        stepParameters:
+          installSSHKey: true
+          bashEnvVars:
+            TF_VAR_environment: 'prod'
